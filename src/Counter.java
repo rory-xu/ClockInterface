@@ -4,9 +4,9 @@
  */
 
 public class Counter{
-	public static final int SECONDS_PER_HOUR = 3600;
-	public static final int SECONDS_PER_MINUTE = 60;
-	public static final int SECONDS_PER_DAY = 24 * 60 * 60;
+	private static final int SECONDS_PER_HOUR = 3600;
+	private static final int SECONDS_PER_MINUTE = 60;
+	private static final int SECONDS_PER_DAY = 24 * 60 * 60;
 	private int totalSeconds;
 
 	/**
@@ -17,7 +17,7 @@ public class Counter{
 	 */
 	public Counter(int hour, int minute, int second) {
 		if (hour < 0 || minute < 0 || second < 0 || hour > 23 || minute > 59 || second > 59) {
-			throw new IllegalArgumentException("Invalid time!");
+			throw new IllegalArgumentException("Invalid counter!");
 		}
 		totalSeconds = hour * 3600 + minute * 60 + second;
 	}
@@ -73,7 +73,8 @@ public class Counter{
 	 * @return A string showing the counter in military time
 	 */
 	public String displayMilitary() {
-		return display(totalSeconds / SECONDS_PER_HOUR);
+		int militaryHourDisplay = totalSeconds / SECONDS_PER_HOUR;
+		return display(militaryHourDisplay);
 	}
 
 	/**
@@ -81,7 +82,8 @@ public class Counter{
 	 * @return A string showing the counter in standard time
 	 */
 	public String displayStandard() {
-		return display((totalSeconds / SECONDS_PER_HOUR) % 12 == 0 ? 12 : (totalSeconds / SECONDS_PER_HOUR) % 12);
+		int stdHourDisplay = (totalSeconds / SECONDS_PER_HOUR) % 12 == 0 ? 12 : (totalSeconds / SECONDS_PER_HOUR) % 12;
+		return display(stdHourDisplay);
 	}
 
 	/**

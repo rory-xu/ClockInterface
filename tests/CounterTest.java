@@ -1,7 +1,38 @@
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import javax.management.InvalidApplicationException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CounterTest {
+
+	@Test
+	void illegal_arg_exception_if_hour_in_constructor_is_negative() {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+			Counter check = new Counter(-1, 00, 00);
+		});
+
+		assertEquals("Invalid counter!", thrown.getMessage());
+	}
+
+	@Test
+	void illegal_arg_exception_if_minute_in_constructor_is_negative() {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+			Counter check = new Counter(00, -1, 00);
+		});
+
+		assertEquals("Invalid counter!", thrown.getMessage());
+	}
+
+	@Test
+	void illegal_arg_exception_if_second_in_constructor_is_negative() {
+		IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+			Counter check = new Counter(00, 00, -1);
+		});
+
+		assertEquals("Invalid counter!", thrown.getMessage());
+	}
 
 	@Test
 	void hours_increments_properly() {
@@ -91,7 +122,6 @@ class CounterTest {
 		Counter testCounter = new Counter(0, 30, 30);
 
 		testCounter.decrementHour();
-
 		assertEquals(check, testCounter);
 	}
 
