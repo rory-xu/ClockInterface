@@ -1,5 +1,6 @@
 /**
  * Counter class that displays an adjustable timer in standard or military time
+ * @author Rory Xu
  */
 
 public class Counter{
@@ -15,14 +16,10 @@ public class Counter{
 	 * @param second Initialized second
 	 */
 	public Counter(int hour, int minute, int second) {
+		if (hour < 0 || minute < 0 || second < 0 || hour > 23 || minute > 59 || second > 59) {
+			throw new IllegalArgumentException("Invalid time!");
+		}
 		totalSeconds = hour * 3600 + minute * 60 + second;
-	}
-
-	/**
-	 * Initializes counter at 00:00:00 military or 12:00:00 for standard
-	 */
-	public Counter() {
-		totalSeconds = 0;
 	}
 
 	public int getTotalSeconds() {
@@ -89,7 +86,7 @@ public class Counter{
 
 	/**
 	 * Adds an integer amount of seconds to the counter
-	 * Compatible with both positive and negative numbers (for increment decrement)
+	 * Compatible with both positive and negative numbers for increment/decrement respectively
 	 * @param seconds Number of seconds to be added
 	 */
 	private void addSeconds(int seconds) {
@@ -109,6 +106,11 @@ public class Counter{
 				totalSeconds % SECONDS_PER_MINUTE);
 	}
 
+	/**
+	 * Compares two counters to see if they are the same counter
+	 * @param obj A counter object
+	 * @return True if they are the same, false if not
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Counter)) return false;
